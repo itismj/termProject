@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8cae832a01b6a498f12137279e8298, type: 3}
+  m_Name: CarData_Red_Car
+  m_EditorClassIdentifier: 
+  carName: Red Car
+  carSprite: {fileID: 21300000, guid: a4b62d60dde307347a4a7180435102e5, type: 3}
+  maxHealth: 3
