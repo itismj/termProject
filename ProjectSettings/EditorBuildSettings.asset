@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   - enabled: 1
-    path: Assets/Scenes/CarSelectionScene.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 4e9285a6ce3eb5c4f94f88f31ac96bb0
   - enabled: 1
-    path: Assets/Scenes/Main_Gameplay.unity
+    path: Assets/Scenes/GameScene.unity
     guid: 8090e051d00139c4c96edf4bedf6b64b
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: d51c14765e489da46aaade4cf288f0f7, type: 2}
