@@ -4,16 +4,31 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform transform;
+    //public Transform transform;
     float speed = 5f;
     float rotationSpeed = 5f;
     public ScoreManager scoreManager;
+    public int maxHealth  = 3;
+    private int currentHealth;
+    public HealthUI healthUI;
+    public GameObject gameOverPanel;
+    private AudioSource engineSound;
+    public AudioClip crashClip;
+    private AudioSource crashSource;
+    public AudioClip damageClip;
 
+    private float defaultEngVolume = 0.25f;  // Usual ones
+    private float reducedEngVolume = 0.15f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        healthUI.SetHealth(maxHealth, currentHealth);
+
+        engineSound = GetComponent<AudioSource>();
+        engineSound.volume = defaultEngVolume;
+        engineSound.Play();
     }
 
     // Update is called once per frame
@@ -49,14 +64,52 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.tag == "Cars") {
-            Time.timeScale = 0;
+        if (collision.gameObject.tag == "Cars")
+        {
+            TakeDamage();
+            Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "Coins") { 
+        if (collision.gameObject.tag == "Coins")
+        {
             Destroy(collision.gameObject);
             scoreManager.AddCoin();
         }
 
+    }
+    public void TakeDamage()
+    {
+        currentHealth--;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        healthUI.UpdateHealth(currentHealth);
+
+        if (currentHealth > 0)
+        {
+            AudioSource.PlayClipAtPoint(damageClip, transform.position);  
+            engineSound.volume = reducedEngVolume;
+        }
+        
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player Dead");
+            AudioSource.PlayClipAtPoint(crashClip, transform.position);
+            
+            engineSound.Stop();
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+    public void UpgradeHealth()
+    {
+        maxHealth++;
+        currentHealth = maxHealth;
+        healthUI.SetHealth(maxHealth, currentHealth);
+    }
+
+    public void Heal()
+    {
+        currentHealth++;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        healthUI.UpdateHealth(currentHealth);
     }
 }

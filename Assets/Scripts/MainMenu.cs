@@ -10,4 +10,15 @@ public class MainMenu : MonoBehaviour
         // Load the game scene
         SceneManager.LoadScene(1);
     }
+
+    public void OpenSettings()
+    {
+        // Load the game scene
+        SceneManager.LoadScene(3);
+    }
+    public void ToMainMenu()
+    {
+        // Load the game scene
+        SceneManager.LoadScene(0);
+    }
 }
