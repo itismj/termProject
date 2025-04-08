@@ -14,7 +14,12 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("SettingsScene"); 
     }
-    
+
+    public void OpenInformationPanel()
+    {
+        SceneManager.LoadScene("InformationScene"); 
+    }
+
     public void QuitGame()
     {
         Application.Quit();

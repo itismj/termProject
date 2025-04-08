@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1107,8 +1108,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -299.8, y: 681.75}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -300, y: 646}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1331674386
 MonoBehaviour:
@@ -1789,6 +1790,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1594207250}
   crashClip: {fileID: 8300000, guid: 0115abb3d01b3af44a4ab0a9d3e75b7a, type: 3}
   damageClip: {fileID: 8300000, guid: 7e1b44635024cec4286e12bc8b8f34c3, type: 3}
+  coinPickClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
 --- !u!50 &2090980585
 Rigidbody2D:
   serializedVersion: 4

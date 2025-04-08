@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip crashClip;
     private AudioSource crashSource;
     public AudioClip damageClip;
+    public AudioClip coinPickClip;
 
     private float defaultEngVolume = 0.25f;  // Usual ones
     private float reducedEngVolume = 0.15f;
@@ -66,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Cars")
         {
-            TakeDamage();
+            TakeDamage(1);
             Destroy(collision.gameObject);
         }
 
@@ -74,12 +75,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
             scoreManager.AddCoin();
+            AudioSource.PlayClipAtPoint(coinPickClip, transform.position);
         }
 
     }
-    public void TakeDamage()
+    public void TakeDamage(int amount)
     {
-        currentHealth--;
+        currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         healthUI.UpdateHealth(currentHealth);
 
@@ -99,16 +101,16 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-    public void UpgradeHealth()
+    public void UpgradeHealth(int amount)
     {
-        maxHealth++;
+        maxHealth += amount;
         currentHealth = maxHealth;
         healthUI.SetHealth(maxHealth, currentHealth);
     }
 
-    public void Heal()
+    public void Heal(int amount)
     {
-        currentHealth++;
+        currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         healthUI.UpdateHealth(currentHealth);
     }
