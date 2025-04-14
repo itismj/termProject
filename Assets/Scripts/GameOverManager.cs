@@ -16,4 +16,10 @@ public class GameOverManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu"); 
     }
+
+    public void GoToSelectCar()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("CarSelectionScene"); 
+    }
 }

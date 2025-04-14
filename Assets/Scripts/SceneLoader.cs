@@ -10,6 +10,11 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("GameScene"); 
     }
 
+    public void OpenSelectCarPanel()
+    {
+        SceneManager.LoadScene("CarSelectionScene"); 
+    }
+
     public void OpenSettings()
     {
         SceneManager.LoadScene("SettingsScene"); 

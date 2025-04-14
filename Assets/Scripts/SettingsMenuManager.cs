@@ -2,22 +2,26 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class SettingsMenuManager : MonoBehaviour {
     public TMP_Dropdown graphicsDropdown;
     public Toggle sfxToggle;
     public Slider musicSlider;
     public AudioSource musicSource;
+    public AudioMixer myMixer;
+
 
     void Start() {
         // Initialize all settings
         InitGraphicsDropdown();
-        InitSFXToggle();
-        InitMusicSlider();
+        InitSFXToggle();       
+        InitMusicSlider(); 
 
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 1;
     }
+
 
     // GRAPHICS QUALITY
     void InitGraphicsDropdown() {
@@ -50,18 +54,23 @@ public class SettingsMenuManager : MonoBehaviour {
     }
 
     void InitSFXToggle() {
-        if (sfxToggle == null) return;
+        if (sfxToggle == null || myMixer == null) return;
 
         bool sfxOn = PlayerPrefs.GetInt("SFXEnabled", 1) == 1;
         sfxToggle.isOn = sfxOn;
-        AudioListener.volume = sfxOn ? 1 : 0;
+
+        // Apply value to the mixer immediately
+        myMixer.SetFloat("sfx", sfxOn ? 0f : -80f);
     }
 
     public void OnSFXToggleChanged(bool isOn) {
+        float volume = isOn ? 0f : -80f;
+        myMixer.SetFloat("sfx", volume);
+
         PlayerPrefs.SetInt("SFXEnabled", isOn ? 1 : 0);
         PlayerPrefs.Save();
-        AudioListener.volume = isOn ? 1 : 0;
     }
+
 
     // MUSIC SLIDER
     void InitMusicSlider() {
@@ -75,8 +84,10 @@ public class SettingsMenuManager : MonoBehaviour {
     public void OnMusicSliderChanged(float volume) {
         PlayerPrefs.SetFloat("MusicVolume", volume);
         PlayerPrefs.Save();
-        if (musicSource != null) {
-            musicSource.volume = volume;
+
+        if (MusicManager.Instance != null) {
+            MusicManager.Instance.SetMusicVolume(volume);
+            Debug.Log("Music volume set to: " + volume);
         }
     }
 }

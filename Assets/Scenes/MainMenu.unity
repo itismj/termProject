@@ -38,6 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 106bffb08d02946429cf88d3557135db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6e91f0e008490a419bbf2e459fcf11d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -548,7 +549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 106bffb08d02946429cf88d3557135db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6e91f0e008490a419bbf2e459fcf11d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -808,7 +809,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 693128686}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356971094}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: OpenSelectCarPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &693128686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,7 +842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 106bffb08d02946429cf88d3557135db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6e91f0e008490a419bbf2e459fcf11d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -962,7 +975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 106bffb08d02946429cf88d3557135db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6e91f0e008490a419bbf2e459fcf11d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

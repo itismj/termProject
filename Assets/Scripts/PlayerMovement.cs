@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //public Transform transform;
     float speed = 5f;
     float rotationSpeed = 5f;
     public ScoreManager scoreManager;
-    public int maxHealth  = 3;
+    public int maxHealth = 3;
     private int currentHealth;
     public HealthUI healthUI;
     public GameObject gameOverPanel;
     private AudioSource engineSound;
-    public AudioClip crashClip;
-    private AudioSource crashSource;
-    public AudioClip damageClip;
+    public SpriteRenderer carRenderer;
+    [Header("SFX Clips")]
     public AudioClip coinPickClip;
+    public AudioClip damageClip;
+    public AudioClip crashClip;
+    public AudioSource sfxSource;
 
     private float defaultEngVolume = 0.25f;  // Usual ones
     private float reducedEngVolume = 0.15f;
@@ -24,7 +25,39 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        // Load selected car index
+        int selectedCarIndex = PlayerPrefs.GetInt("SelectedCar", 0);
+
+        // Load all cars
+        CarData[] allCars = Resources.LoadAll<CarData>("CarData");
+        
+        if (selectedCarIndex >= 0 && selectedCarIndex < allCars.Length)
+        {
+            CarData selectedCar = allCars[selectedCarIndex];
+
+            int savedHealth = PlayerPrefs.GetInt("CarHealth_" + selectedCarIndex, selectedCar.health);
+            maxHealth = savedHealth;
+            currentHealth = maxHealth;
+
+            // Set car stats
+            speed = selectedCar.speed;
+            rotationSpeed = selectedCar.handling;
+
+            // Set sprite
+            if (carRenderer != null && selectedCar.previewSprite != null)
+            {
+                carRenderer.sprite = selectedCar.previewSprite;
+            }
+
+            currentHealth = maxHealth;
+        } else {
+            // Fallback values if index is out of bounds
+            maxHealth = 3;
+            currentHealth = 3;
+            speed = 5f;
+            rotationSpeed = 5f;
+        }
+
         healthUI.SetHealth(maxHealth, currentHealth);
 
         engineSound = GetComponent<AudioSource>();
@@ -75,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
             scoreManager.AddCoin();
-            AudioSource.PlayClipAtPoint(coinPickClip, transform.position);
+            sfxSource.PlayOneShot(coinPickClip);
         }
 
     }
@@ -87,18 +120,23 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentHealth > 0)
         {
-            AudioSource.PlayClipAtPoint(damageClip, transform.position);  
+            sfxSource.PlayOneShot(damageClip);
             engineSound.volume = reducedEngVolume;
         }
         
         if (currentHealth <= 0)
         {
             Debug.Log("Player Dead");
-            AudioSource.PlayClipAtPoint(crashClip, transform.position);
+            sfxSource.PlayOneShot(crashClip);
             
             engineSound.Stop();
             gameOverPanel.SetActive(true);
             Time.timeScale = 0;
+
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.SaveCoinsToTotal();
+            }
         }
     }
     public void UpgradeHealth(int amount)

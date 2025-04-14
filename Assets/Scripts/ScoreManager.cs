@@ -75,4 +75,14 @@ public class ScoreManager : MonoBehaviour
             }
         }
     }
+
+    public void SaveCoinsToTotal()
+    {
+        int totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        totalCoins += coins;
+        PlayerPrefs.SetInt("TotalCoins", totalCoins);
+        PlayerPrefs.Save();
+
+        Debug.Log("Coins Saved: " + totalCoins);
+    }
 }
