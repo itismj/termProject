@@ -15,7 +15,7 @@ public class ScoreManager : MonoBehaviour
     public Text distanceText;
     public Text coinsText;
 
-
+    
     private void Awake()
     {
         // Singleton pattern: Ensure only one instance exists

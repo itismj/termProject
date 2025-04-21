@@ -30,4 +30,8 @@ public class SceneLoader : MonoBehaviour
         Application.Quit();
         Debug.Log("Quit pressed");
     }
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu"); 
+    }
 }

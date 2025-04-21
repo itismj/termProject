@@ -72,25 +72,56 @@ public class PlayerMovement : MonoBehaviour
         clamp();
         
     }
-    void Movement() {
-    // Move right
+    void Movement()
+    {
+        bool moveLeft = false;
+        bool moveRight = false;
 
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+
+    // Detect continuous touch input
+        if (Input.touchCount > 0)
         {
-            transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 45), rotationSpeed * Time.deltaTime);
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.position.x < Screen.width / 2)
+                {
+                    moveLeft = true;
+                }
+                else
+                {
+                    moveRight = true;
+                }
+            }
         }
 
-            // Move left
+        // Keyboard input (for testing in editor)
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            moveLeft = true;
+        }
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            moveRight = true;
+        }
+
+        // Move the car
+        if (moveLeft)
         {
             transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 135), rotationSpeed * Time.deltaTime);
         }
-        if (transform.rotation.z != 90) {
+        else if (moveRight)
+        {
+            transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 45), rotationSpeed * Time.deltaTime);
+        }
+        else
+        {
+            // Reset rotation when not turning
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90), 10f * Time.deltaTime);
         }
     }
+    
     void clamp() {
         Vector3 pos = transform.position;
         pos.x = Mathf.Clamp(pos.x, -1.8f, 1.8f);

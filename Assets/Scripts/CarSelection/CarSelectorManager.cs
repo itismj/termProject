@@ -161,6 +161,9 @@ public class CarSelectorManager : MonoBehaviour
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
+    public void ToMainMenu() {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 
     [ContextMenu("Reset Health Upgrade Cost to 5")]
     public void ResetUpgradeCostToFive()
